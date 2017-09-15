@@ -24,7 +24,39 @@ class SSOTokenGenerator {
     private SecretKeySpec secretKeySpec;
     private Base64 base64 = new Base64();
 
-    /*
+
+    public static void main(String[] args)
+    {
+        try
+        {
+            // go to: https://app.klipfolio.com/settings/single_signon_edit
+            // to find your companyId and secretKey
+            // --------------------------------------------------------------
+            String companyId = "<company-id>";
+            String secretKey = "<secret-key>";
+            String email = "<klipfolio-login-email>";
+
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("email", email);
+
+
+            final String token = new SSOTokenGenerator().createToken(email, companyId, secretKey);
+
+
+            System.out.println("Test this token: https://klipfolio.github.io/kfapp-custom-sso/index.html\n\n" +
+                    "email = " + email + "\n" +
+                    "token = " + token + "\n" +
+                    "company id = " + companyId
+            );
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    /**
     * Creates the SecretKeySpec (to be used in AES), based on the ID and ssoKey of the company
     * @param klipfolioCompanyId ID of the company
     * @param ssoKey the secret key of the company
@@ -89,7 +121,8 @@ class SSOTokenGenerator {
      * @param  email the email of the company.
      * @param  klipfolioCompanyId the id of the company
      * @param  ssoKey  the sso secret key of the company
-     * @return ssoKey generated SSO token; */
+     * @return ssoKey generated SSO token;
+     * */
     public String createToken(String email, String klipfolioCompanyId, String ssoKey) throws Exception {
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("email", email);
